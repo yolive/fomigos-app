@@ -1,0 +1,47 @@
+.post-card {
+  margin: 8px;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.post-image-container {
+  width: 100%;
+  max-height: 300px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5f5f5;
+}
+
+.post-image {
+  width: 100%;
+  height: auto;
+  max-height: 300px;
+  object-fit: cover;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  padding: 20px;
+}
+
+.empty-state ion-card {
+  width: 100%;
+  max-width: 300px;
+}
+
+ion-avatar img {
+  object-fit: cover;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+  .post-card {
+    margin: 16px auto;
+    max-width: 600px;
+  }
+}

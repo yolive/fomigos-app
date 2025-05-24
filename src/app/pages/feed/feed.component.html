@@ -1,0 +1,121 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Feed</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Pull to refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content pulling-icon="refresh" refreshing-spinner="crescent">
+    </ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Loading skeleton -->
+  <div *ngIf="isLoading && posts.length === 0">
+    <ion-card *ngFor="let item of [1, 2, 3]">
+      <ion-item>
+        <ion-avatar slot="start">
+          <ion-skeleton-text animated></ion-skeleton-text>
+        </ion-avatar>
+        <ion-label>
+          <h3>
+            <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+          </h3>
+          <p>
+            <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-skeleton-text
+        animated
+        style="width: 100%; height: 200px"
+      ></ion-skeleton-text>
+      <ion-card-content>
+        <ion-skeleton-text animated style="width: 80%"></ion-skeleton-text>
+        <ion-skeleton-text animated style="width: 60%"></ion-skeleton-text>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Posts -->
+  <div *ngIf="!isLoading || posts.length > 0">
+    <ion-card
+      *ngFor="let post of posts; trackBy: trackByPostId"
+      class="post-card"
+    >
+      <!-- Header do post com info do usuário -->
+      <ion-item>
+        <ion-avatar slot="start">
+          <img
+            [src]="post.profiles?.avatar_url || 'assets/avatar-placeholder.png'"
+            [alt]="post.profiles?.username"
+            (error)="onImageError($event)"
+          />
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ post.profiles?.full_name || post.profiles?.username }}</h3>
+          <p>{{ formatDate(post.created_at) }}</p>
+        </ion-label>
+      </ion-item>
+
+      <!-- Imagem do post -->
+      <div class="post-image-container">
+        <img
+          [src]="post.image_url"
+          [alt]="post.title"
+          class="post-image"
+          (error)="onImageError($event)"
+        />
+      </div>
+
+      <!-- Conteúdo do post -->
+      <ion-card-header>
+        <ion-card-title>{{ post.title }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <p>{{ post.description }}</p>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Mensagem quando não há posts -->
+    <div *ngIf="posts.length === 0 && !isLoading" class="empty-state">
+      <ion-card>
+        <ion-card-content class="ion-text-center">
+          <ion-icon name="person" size="large" color="medium"></ion-icon>
+          <h2>Nenhum post ainda</h2>
+          <p>Seja o primeiro a compartilhar algo!</p>
+          <ion-button (click)="goToCreatePost()" fill="outline">
+            Criar Post
+          </ion-button>
+        </ion-card-content>
+      </ion-card>
+    </div>
+  </div>
+
+  <!-- Infinite scroll -->
+  <ion-infinite-scroll
+    *ngIf="posts.length > 0"
+    (ionInfinite)="loadMore($event)"
+    [disabled]="!hasMore"
+  >
+    <ion-infinite-scroll-content
+      loading-spinner="bubbles"
+      loading-text="Carregando mais posts..."
+    >
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+
+  <!-- FAB button para criar post -->
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="goToCreatePost()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

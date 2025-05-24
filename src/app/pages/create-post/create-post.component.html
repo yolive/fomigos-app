@@ -1,0 +1,144 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/feed"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Novo Post</ion-title>
+    <ion-buttons slot="end">
+      <ion-button
+        (click)="createPost()"
+        [disabled]="!isFormValid() || isLoading"
+        fill="clear"
+      >
+        <ion-spinner *ngIf="isLoading" slot="start"></ion-spinner>
+        <ion-icon *ngIf="!isLoading" name="checkmark"></ion-icon>
+        {{ isLoading ? "" : "Publicar" }}
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <!-- Progress bar para upload -->
+  <ion-progress-bar
+    *ngIf="uploadProgress > 0 && uploadProgress < 100"
+    [value]="uploadProgress / 100"
+    color="primary"
+  >
+  </ion-progress-bar>
+
+  <form #postForm="ngForm">
+    <!-- Seleção de imagem -->
+    <ion-card>
+      <ion-card-content>
+        <div class="image-upload-section">
+          <div
+            *ngIf="!selectedImage"
+            class="image-placeholder"
+            (click)="selectImage()"
+          >
+            <ion-icon name="camera" size="large" color="medium"></ion-icon>
+            <p>Toque para adicionar uma foto</p>
+          </div>
+
+          <div *ngIf="selectedImage" class="selected-image-container">
+            <img
+              [src]="imagePreview"
+              alt="Preview da imagem"
+              class="selected-image"
+            />
+            <ion-button
+              fill="clear"
+              size="small"
+              class="change-image-btn"
+              (click)="selectImage()"
+            >
+              <ion-icon name="image"></ion-icon>
+              Trocar Imagem
+            </ion-button>
+          </div>
+
+          <!-- Input file oculto -->
+          <input
+            type="file"
+            #fileInput
+            accept="image/*"
+            (change)="onFileSelected($event)"
+            style="display: none"
+          />
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Título do post -->
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Título *</ion-label>
+          <ion-input
+            type="text"
+            [(ngModel)]="title"
+            name="title"
+            required
+            maxlength="100"
+            placeholder="Digite um título interessante..."
+            #titleInput="ngModel"
+          >
+          </ion-input>
+        </ion-item>
+        <div class="char-counter">{{ title.length }}/100</div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Descrição do post -->
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Descrição *</ion-label>
+          <ion-textarea
+            [(ngModel)]="description"
+            name="description"
+            required
+            rows="4"
+            maxlength="500"
+            placeholder="Conte mais sobre sua foto..."
+            #descriptionInput="ngModel"
+          >
+          </ion-textarea>
+        </ion-item>
+        <div class="char-counter">{{ description.length }}/500</div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Botão de criar post (mobile) -->
+    <ion-button
+      expand="block"
+      (click)="createPost()"
+      [disabled]="!isFormValid() || isLoading"
+      class="create-post-btn ion-margin-top"
+    >
+      <ion-spinner *ngIf="isLoading" slot="start"></ion-spinner>
+      {{ isLoading ? "Publicando..." : "Publicar Post" }}
+    </ion-button>
+  </form>
+
+  <!-- Toast de erro -->
+  <ion-toast
+    [isOpen]="!!errorMessage"
+    [message]="errorMessage"
+    duration="4000"
+    color="danger"
+    (didDismiss)="errorMessage = ''"
+  >
+  </ion-toast>
+
+  <!-- Toast de sucesso -->
+  <ion-toast
+    [isOpen]="!!successMessage"
+    [message]="successMessage"
+    duration="3000"
+    color="success"
+    (didDismiss)="successMessage = ''"
+  >
+  </ion-toast>
+</ion-content>
