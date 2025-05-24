@@ -52,6 +52,18 @@ O **Fomigos** é uma aplicação móvel desenvolvida para conectar pessoas com o
 - **UI/UX**: Ionic Components
 - **PWA**: Angular Service Worker
 
+## ☁️ Deploy
+
+A aplicação foi publicada utilizando o **Netlify**, facilitando o deploy contínuo e mantendo o projeto disponível online de forma simples e eficiente.
+
+- O build do frontend é automaticamente publicado a cada push na branch main.
+- O endereço do site pode ser facilmente compartilhado para acesso público.
+
+> **Ferramenta utilizada para deploy:** [Netlify](https://www.netlify.com/)
+
+### 🔗 Acesse a aplicação publicada:  
+[https://fomigos.netlify.app](https://fomigos.netlify.app)
+
 ## 📦 Instalação e Configuração
 
 ### **5. Próximos Passos:**

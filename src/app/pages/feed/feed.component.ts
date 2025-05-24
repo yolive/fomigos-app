@@ -88,11 +88,14 @@ export class FeedComponent implements OnInit {
       this.hasMore = true;
     }
 
+    this.isLoading = true;
+
     try {
       const { data, error } = await this.supabase.getPosts();
       
       if (error) {
         console.error('Erro ao carregar posts:', error);
+        this.posts = [];
         return;
       }
 

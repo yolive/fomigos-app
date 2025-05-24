@@ -1,7 +1,7 @@
 {
-  "name": "Social Posts App",
-  "short_name": "SocialPosts",
-  "theme_color": "#3880ff",
+  "name": "Fomigos App",
+  "short_name": "Fomigos",
+  "theme_color": "#f39432",
   "background_color": "#ffffff",
   "display": "standalone",
   "start_url": "/",

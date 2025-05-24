@@ -13,12 +13,33 @@
 
 // Variáveis customizadas
 :root {
-  --ion-color-primary: #3880ff;
-  --ion-color-primary-rgb: 56, 128, 255;
-  --ion-color-primary-contrast: #ffffff;
+  /* Ionic Primary Color (base laranja apetitosa) */
+  --ion-color-primary: #f39432;
+  --ion-color-primary-rgb: 243, 148, 50;
+  --ion-color-primary-contrast: #fff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #3171e0;
-  --ion-color-primary-tint: #4c8dff;
+  --ion-color-primary-shade: #b96a1f;
+  --ion-color-primary-tint: #f5a74f;
+
+  /* Paleta complementar para comida */
+  --ion-color-secondary: #2fbf71;         /* Verde fresco */
+  --ion-color-secondary-rgb: 47, 191, 113;
+  --ion-color-secondary-contrast: #fff;
+  --ion-color-secondary-shade: #21804d;
+  --ion-color-secondary-tint: #52cc8b;
+
+  --ion-color-tertiary: #ffe066;          /* Amarelo suave */
+  --ion-color-tertiary-rgb: 255, 224, 102;
+  --ion-color-tertiary-contrast: #10101a;
+  --ion-color-tertiary-shade: #e6c84d;
+  --ion-color-tertiary-tint: #ffe680;
+
+  /* Tons neutros */
+  --white: #fff;
+  --black: #10101a;
+  --black-010: #2a2a30;
+  --grey: #b3b3b3;
+  --background: #f5f5f5;
 }
 
 // Reset global
