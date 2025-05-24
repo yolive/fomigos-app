@@ -128,7 +128,7 @@
     [message]="errorMessage"
     duration="4000"
     color="danger"
-    (didDismiss)="errorMessage = ''"
+    (didDismiss)="errorMessage = 'Erro ao criar post. Tente novamente.'"
   >
   </ion-toast>
 
@@ -138,7 +138,7 @@
     [message]="successMessage"
     duration="3000"
     color="success"
-    (didDismiss)="successMessage = ''"
+    (didDismiss)="successMessage = 'Post criado com sucesso!'"
   >
   </ion-toast>
 </ion-content>
